@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../../App.css';
 import { requestLogin } from '../../Redux/Action/Auth/index';
+import { emailValidation } from '../common/index';
 
 class Login extends Component {
     constructor(props) {
@@ -18,8 +19,12 @@ class Login extends Component {
         const { email, password } = this.state;
         if (!email) {
             return this.setState({ error: 'Please enter your user name' })
+        } else if (!emailValidation.test(email)) {
+            return this.setState({ error: 'Inavalid email address' })
         } else if (!password) {
             return this.setState({ error: 'Please enter your password' })
+        } else if (password.length < 8 || password.length > 16) {
+            return this.setState({ error: "Invalid credentials" })
         } else {
             this.props.requestLogin(email, password)
         }

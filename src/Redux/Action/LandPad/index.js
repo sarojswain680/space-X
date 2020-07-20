@@ -1,66 +1,66 @@
 import axios from 'axios';
 import { baseUrl } from '../../../Component/common/index';
 import {
-    GET_ALL_LAUNCHPAD,
+    GET_ALL_LANDPAD,
 
 
 
-    GET_CAPSULES_DETAIL_FAIL, GET_LAUNCHPAD_DETAIL,
-    GET_LAUNCHPAD_DETAIL_SUCCESS, GET_LAUNCHPAD_FAIL, GET_LAUNCHPAD_SUCCESS
+    GET_LANDPAD_DETAIL,
+    GET_LANDPAD_DETAIL_SUCCESS, GET_LANDPAD_FAIL, GET_LANDPAD_SUCCESS, GET_LANDPAD_DETAIL_FAIL
 } from '../../Types';
 
-export const requestHistory = () => {
+export const requestLandpad = () => {
     return dispatch => {
         dispatch({
-            type: GET_ALL_LAUNCHPAD,
+            type: GET_ALL_LANDPAD,
         });
-        const api = baseUrl + 'history';
+        const api = baseUrl + 'landpads';
         axios.get(api, {}, {})
             .then((res) =>
-                historySuccess(dispatch, res)
+                landpadSuccess(dispatch, res)
             ).catch(error => {
-                historyFail(dispatch, error);
+                landpadFail(dispatch, error);
             }
             );
     };
 };
 
-const historySuccess = (dispatch, res) => {
+const landpadSuccess = (dispatch, res) => {
     dispatch({
-        type: GET_LAUNCHPAD_SUCCESS,
+        type: GET_LANDPAD_SUCCESS,
         payload: res.data,
     });
 };
-const historyFail = (dispatch, error) => {
+const landpadFail = (dispatch, error) => {
     dispatch({
-        type: GET_LAUNCHPAD_FAIL,
+        type: GET_LANDPAD_FAIL,
     });
 };
 
-export const historyDetails = (id) => {
+export const landpadDetails = (id) => {
     return dispatch => {
         dispatch({
-            type: GET_LAUNCHPAD_DETAIL,
+            type: GET_LANDPAD_DETAIL,
         });
-        const api = baseUrl + `history/${id}`;
+        const api = baseUrl + `landpads/${id}`;
         axios.get(api, {}, {})
             .then((res) =>
-                historyDetailSuccess(dispatch, res)
+                landpadDetailSuccess(dispatch, res)
             ).catch(error => {
-                historyDetailFail(dispatch, error);
+                landpadDetailFail(dispatch, error);
             }
             );
     };
 };
 
-const historyDetailSuccess = (dispatch, res) => {
+const landpadDetailSuccess = (dispatch, res) => {
     dispatch({
-        type: GET_LAUNCHPAD_DETAIL_SUCCESS,
+        type: GET_LANDPAD_DETAIL_SUCCESS,
         payload: res.data,
     });
 };
-const historyDetailFail = (dispatch, error) => {
+const landpadDetailFail = (dispatch, error) => {
     dispatch({
-        type: GET_CAPSULES_DETAIL_FAIL,
+        type: GET_LANDPAD_DETAIL_FAIL,
     });
 };

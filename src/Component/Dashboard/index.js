@@ -1,9 +1,9 @@
 import React, { Component } from "react";
+import { Spinner } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../../App.css';
-import { requestData } from '../../Redux/Action/Auth/index';
-import { Table } from 'react-bootstrap';
+import { requestCompanyInfo } from '../../Redux/Action/Info/index';
 
 class Dashboard extends Component {
     constructor(props) {
@@ -12,55 +12,51 @@ class Dashboard extends Component {
     }
 
     componentDidMount = () => {
-        this.props.requestData()
+        this.props.requestCompanyInfo()
     }
 
     render() {
-        const { users } = this.props;
+        const { loading, company } = this.props;
         return (
-            <div className="auth-wrapper">
-                <div className="auth-inner">
-                    <h3>Employee List</h3>
-                    <div className="form-group">
-                        <Table striped bordered hover variant="dark">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Age</th>
-                                    <th>Gender</th>
-                                    <th>Email</th>
-                                    <th>Phone</th>
-                                </tr>
-                            </thead>
-                            {
-                                users.map(user => {
-                                    return <tbody>
-                                        <tr>
-                                            <td>{user.name}</td>
-                                            <td>{user.age}</td>
-                                            <td>{user.gender}</td>
-                                            <td>{user.email}</td>
-                                            <td>{user.phoneNo}</td>
-                                        </tr>
-                                    </tbody>
-                                })
-                            }
-                        </Table>
-                    </div>
-                </div>
+            <div className="company">
+                {
+                    loading ?
+                        <Spinner animation="grow" variant="secondary" />
+                        :
+                        <div className="auth-inner">
+                            <h3 className="header">{"Company Info"}</h3>
+                            <div>C.E.O : - {company.ceo}</div>
+                            <div>C.O.O : - {company.coo}</div>
+                            <div>C.T.O Propulsion : - {company.cto_propulsion}</div>
+                            <div>Employess : - {company.employees}</div>
+                            <div>Founded : - {company.founded}</div>
+                            <div>Founder : - {company.founder}</div>
+                            <div>Headquarters : -{`${company && company.headquarters && company.headquarters.address}, ${company && company.headquarters && company.headquarters.city}, ${company && company.headquarters && company.headquarters.state}`} </div>
+                            <div>Launch sites : - {company.launch_sites}</div>
+                            <div>Elon twitter : - {company && company.links && company.links.elon_twitter}</div>
+                            <div>Flicker : - {company && company.links && company.links.flickr}</div>
+                            <div>Twitter : - {company && company.links && company.links.twitter}</div>
+                            <div>Website : - {company && company.links && company.links.website}</div>
+                            <div>Name : - {company.name}</div>
+                            <div>Summary : - {company.summary}</div>
+                            <div>Test sites : - {company.test_sites}</div>
+                            <div>Valuation : - {company.valuation}</div>
+                            <div>Vehicles : - {company.vehicles}</div>
+                        </div>
+                }
             </div>
         );
     }
 }
 
-const mapStateToProps = (state) => {
-    const { users, userLoading } = state;
-    return { users, userLoading };
+const mapStateToProps = ({ Info }) => {
+    const { loading, company } = Info;
+    return { loading, company };
 }
 const mapDispatchToProps = dispatch => {
     return {
-        requestData: () => {
-            dispatch(requestData());
+        requestCompanyInfo: () => {
+            dispatch(requestCompanyInfo());
         }
     };
 };

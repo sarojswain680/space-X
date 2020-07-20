@@ -25,6 +25,7 @@ export const requestCompanyInfo = () => {
 };
 
 const companyInfoSuccess = (dispatch, res) => {
+    console.log('mskklsnk', dispatch, res)
     dispatch({
         type: GET_COMPANY_INFO_SUCCESS,
         payload: res.data,
