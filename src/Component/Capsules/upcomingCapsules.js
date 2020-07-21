@@ -3,21 +3,21 @@ import { Spinner } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../../App.css';
-import { requestCapsules } from '../../Redux/Action/Capsules/index';
+import { getUpcomingCapsule } from '../../Redux/Action/Capsules/index';
 import CapsuleTable from "../common/CapsuleTable";
 
-class CapsulesScreen extends Component {
+class UpcomingCapsulesScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {}
     }
 
     componentDidMount = () => {
-        this.props.requestCapsules()
+        this.props.getUpcomingCapsule()
     }
 
     render() {
-        const { loading, capsules } = this.props;
+        const { loading, upcomingCapsule } = this.props;
         return (
             <div className="company">
                 {
@@ -25,13 +25,13 @@ class CapsulesScreen extends Component {
                         <Spinner animation="grow" variant="secondary" />
                         :
                         <CapsuleTable
-                            title={"Capsules"}
+                            title={"Upcoming Capsules"}
                             header={["Capsule Id",
                                 "Capsule Serial", "Details",
                                 "Landings", "Missions", "Original Launch", "Original Launch Unix", "Reuse count", "Status",
                                 "Type", "Details"
                             ]}
-                            data={capsules}
+                            data={upcomingCapsule}
                             push={this.props.history.push}
                         />
                 }
@@ -41,14 +41,14 @@ class CapsulesScreen extends Component {
 }
 
 const mapStateToProps = ({ Capsules }) => {
-    const { loading, capsules } = Capsules;
-    return { loading, capsules };
+    const { loading, upcomingCapsule } = Capsules;
+    return { loading, upcomingCapsule };
 }
 const mapDispatchToProps = dispatch => {
     return {
-        requestCapsules: () => {
-            dispatch(requestCapsules());
+        getUpcomingCapsule: () => {
+            dispatch(getUpcomingCapsule());
         }
     };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(CapsulesScreen)  
+export default connect(mapStateToProps, mapDispatchToProps)(UpcomingCapsulesScreen)  

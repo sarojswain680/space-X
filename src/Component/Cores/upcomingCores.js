@@ -3,21 +3,21 @@ import { Spinner } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../../App.css';
-import { requestCores } from '../../Redux/Action/Cores/index';
+import { getUpcomingCore } from '../../Redux/Action/Cores/index';
 import CoresTable from "../common/CoresTable";
 
-class CoresScreen extends Component {
+class UpcomingCores extends Component {
     constructor(props) {
         super(props);
         this.state = {}
     }
 
     componentDidMount = () => {
-        this.props.requestCores()
+        this.props.getUpcomingCore()
     }
 
     render() {
-        const { loading, cores } = this.props;
+        const { loading, upcomingCore } = this.props;
         return (
             <div className="company">
                 {
@@ -25,13 +25,13 @@ class CoresScreen extends Component {
                         <Spinner animation="grow" variant="secondary" />
                         :
                         <CoresTable
-                            title={"Cores"}
+                            title={"Upcoming Cores"}
                             header={["ASDS Attempts",
                                 "ASDS Landings", "Block",
                                 "Core serial", "Details", "Missions", "Original Launch", "Original Launch Unix", "Reuse count", "RTLS Attempts",
                                 "RTLS Landings", "Status", "Water Landing", "Details"
                             ]}
-                            data={cores}
+                            data={upcomingCore}
                             push={this.props.history.push}
                         />
                 }
@@ -41,14 +41,14 @@ class CoresScreen extends Component {
 }
 
 const mapStateToProps = ({ Cores }) => {
-    const { loading, cores } = Cores;
-    return { loading, cores };
+    const { loading, upcomingCore } = Cores;
+    return { loading, upcomingCore };
 }
 const mapDispatchToProps = dispatch => {
     return {
-        requestCores: () => {
-            dispatch(requestCores());
+        getUpcomingCore: () => {
+            dispatch(getUpcomingCore());
         }
     };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(CoresScreen)  
+export default connect(mapStateToProps, mapDispatchToProps)(UpcomingCores)  

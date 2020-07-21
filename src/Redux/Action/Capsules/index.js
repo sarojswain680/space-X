@@ -78,7 +78,7 @@ const capsuleDetailFail = (dispatch, error) => {
     });
 };
 
-export const upcomingCapsule = () => {
+export const getUpcomingCapsule = () => {
     return dispatch => {
         dispatch({
             type: GET_CAPSULES_UPCOMING,
@@ -107,7 +107,7 @@ const upcomingCapsuleFail = (dispatch, error) => {
 };
 
 
-export const pastCapsule = () => {
+export const getPastCapsule = () => {
     return dispatch => {
         dispatch({
             type: GET_CAPSULES_PAST,

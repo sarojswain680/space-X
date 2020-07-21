@@ -78,7 +78,7 @@ const coreDetailFail = (dispatch, error) => {
     });
 };
 
-export const upcomingCore = () => {
+export const getUpcomingCore = () => {
     return dispatch => {
         dispatch({
             type: GET_CORES_UPCOMING,
@@ -107,7 +107,7 @@ const upcomingCoreFail = (dispatch, error) => {
 };
 
 
-export const pastCores = () => {
+export const getPastCores = () => {
     return dispatch => {
         dispatch({
             type: GET_CORES_PAST,

@@ -82,8 +82,8 @@ class Login extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    const { isLoggedIn, loading, loginError } = state;
+const mapStateToProps = ({ Auth }) => {
+    const { isLoggedIn, loading, loginError } = Auth;
     return { isLoggedIn, loading, loginError };
 }
 const mapDispatchToProps = dispatch => {

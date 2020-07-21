@@ -45,10 +45,30 @@ export default (state = initialState, action) => {
 
         case GET_CAPSULES_DETAIL_SUCCESS:
             return {
-                ...state, loading: true, capsule: action.payload
+                ...state, loading: false, capsule: action.payload
             };
         case GET_CAPSULES_DETAIL_FAIL:
-            return { ...state, loading: fals };
+            return { ...state, loading: false };
+
+        case GET_CAPSULES_PAST:
+            return { ...state, loading: true };
+
+        case GET_CAPSULES_PAST_SUCCESS:
+            return {
+                ...state, loading: false, pastCapsule: action.payload
+            };
+        case GET_CAPSULES_PAST_FAIL:
+            return { ...state, loading: false };
+
+        case GET_CAPSULES_UPCOMING:
+            return { ...state, loading: true };
+
+        case GET_CAPSULES_UPCOMING_SUCCESS:
+            return {
+                ...state, loading: false, upcomingCapsule: action.payload
+            };
+        case GET_CAPSULES_UPCOMING_FAIL:
+            return { ...state, loading: false };
         default:
             return state
 
