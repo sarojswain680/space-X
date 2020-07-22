@@ -3,44 +3,53 @@ import { Spinner } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../../App.css';
-import { requestCompanyInfo } from '../../Redux/Action/Info/index';
+import { requestLandpad } from '../../Redux/Action/LandPad/index';
+import LandpadTable from "../common/LandpadTable";
 
-class Landing extends Component {
+class LandpadsScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {}
     }
 
     componentDidMount = () => {
-        this.props.requestCompanyInfo()
+        this.props.requestLandpad()
     }
 
     render() {
-        const { loading } = this.props;
+        const { loading, landpads } = this.props;
+        console.log('vsdvdfvdfv', landpads[0])
         return (
             <div className="company">
                 {
                     loading ?
                         <Spinner animation="grow" variant="secondary" />
                         :
-                        <div className="auth-inner">
-                            <h3 className="header">{"Landing"}</h3>
-                        </div>
+                        <LandpadTable
+                            title={"Landpads"}
+                            header={["attempted_landings",
+                                "details", "full_name",
+                                "id", "landing_type",
+                                "location", "status", "successful_landings", "wikipedia"
+                            ]}
+                            data={landpads}
+                            push={this.props.history.push}
+                        />
                 }
             </div>
         );
     }
 }
 
-const mapStateToProps = ({ Info }) => {
-    const { loading, company } = Info;
-    return { loading, company };
+const mapStateToProps = ({ Landpad }) => {
+    const { loading, landpads } = Landpad;
+    return { loading, landpads };
 }
 const mapDispatchToProps = dispatch => {
     return {
-        requestCompanyInfo: () => {
-            dispatch(requestCompanyInfo());
+        requestLandpad: () => {
+            dispatch(requestLandpad());
         }
     };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(Landing)  
+export default connect(mapStateToProps, mapDispatchToProps)(LandpadsScreen)  

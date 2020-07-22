@@ -9,57 +9,57 @@ import {
     GET_LAUNCHPAD_DETAIL_FAIL, GET_LAUNCHPAD_DETAIL_SUCCESS, GET_LAUNCHPAD_FAIL, GET_LAUNCHPAD_SUCCESS
 } from '../../Types';
 
-export const requestHistory = () => {
+export const requestLaunchPad = () => {
     return dispatch => {
         dispatch({
             type: GET_ALL_LAUNCHPAD,
         });
-        const api = baseUrl + 'history';
+        const api = baseUrl + 'launchpads';
         axios.get(api, {}, {})
             .then((res) =>
-                historySuccess(dispatch, res)
+                launchPadSuccess(dispatch, res)
             ).catch(error => {
-                historyFail(dispatch, error);
+                launchPadFail(dispatch, error);
             }
             );
     };
 };
 
-const historySuccess = (dispatch, res) => {
+const launchPadSuccess = (dispatch, res) => {
     dispatch({
         type: GET_LAUNCHPAD_SUCCESS,
         payload: res.data,
     });
 };
-const historyFail = (dispatch, error) => {
+const launchPadFail = (dispatch, error) => {
     dispatch({
         type: GET_LAUNCHPAD_FAIL,
     });
 };
 
-export const historyDetails = (id) => {
+export const launchPadDetails = (site_id) => {
     return dispatch => {
         dispatch({
             type: GET_LAUNCHPAD_DETAIL,
         });
-        const api = baseUrl + `history/${id}`;
+        const api = baseUrl + `launchpads/${site_id}`;
         axios.get(api, {}, {})
             .then((res) =>
-                historyDetailSuccess(dispatch, res)
+                launchPadDetailSuccess(dispatch, res)
             ).catch(error => {
-                historyDetailFail(dispatch, error);
+                launchPadDetailFail(dispatch, error);
             }
             );
     };
 };
 
-const historyDetailSuccess = (dispatch, res) => {
+const launchPadDetailSuccess = (dispatch, res) => {
     dispatch({
         type: GET_LAUNCHPAD_DETAIL_SUCCESS,
         payload: res.data,
     });
 };
-const historyDetailFail = (dispatch, error) => {
+const launchPadDetailFail = (dispatch, error) => {
     dispatch({
         type: GET_LAUNCHPAD_DETAIL_FAIL,
     });

@@ -3,44 +3,60 @@ import { Spinner } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../../App.css';
-import { requestCompanyInfo } from '../../Redux/Action/Info/index';
+import { requestDragons } from '../../Redux/Action/Dragons/index';
+import DragonsTable from "../common/DragonsTable";
 
-class Dragons extends Component {
+class DragonsScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {}
     }
 
     componentDidMount = () => {
-        this.props.requestCompanyInfo()
+        this.props.requestDragons()
     }
 
     render() {
-        const { loading } = this.props;
+        const { loading, dragons } = this.props;
+        console.log('vvdfsvdfvd', dragons[0])
         return (
             <div className="company">
                 {
                     loading ?
                         <Spinner animation="grow" variant="secondary" />
                         :
-                        <div className="auth-inner">
-                            <h3 className="header">{"Dragons"}</h3>
-                        </div>
+                        <DragonsTable
+                            title={"Dragons"}
+                            header={["Active",
+                                "Crew capacity", "Description",
+                                "Diameter", "Dry mass kg.",
+                                "Dry mass lb.", "First flight",
+                                "Flicker images",
+                                "Heat shield", "Height w trunk",
+                                "Id", "Launch payload mass",
+                                "Launch Payload vol.", "Name",
+                                "Orbit duration Yr", "Pressurized capsule",
+                                "Return Payload mass", "Return Payload volume",
+                                "Sidewall angle deg.", "thrusters", "Trunk", "Type", "Wikipedia"
+                            ]}
+                            data={dragons}
+                            push={this.props.history.push}
+                        />
                 }
             </div>
         );
     }
 }
 
-const mapStateToProps = ({ Info }) => {
-    const { loading, company } = Info;
-    return { loading, company };
+const mapStateToProps = ({ Dragons }) => {
+    const { loading, dragons } = Dragons;
+    return { loading, dragons };
 }
 const mapDispatchToProps = dispatch => {
     return {
-        requestCompanyInfo: () => {
-            dispatch(requestCompanyInfo());
+        requestDragons: () => {
+            dispatch(requestDragons());
         }
     };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(Dragons)  
+export default connect(mapStateToProps, mapDispatchToProps)(DragonsScreen)  

@@ -3,44 +3,54 @@ import { Spinner } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../../App.css';
-import { requestCompanyInfo } from '../../Redux/Action/Info/index';
+import { requestLaunchPad } from '../../Redux/Action/LaunchPad/index';
+import LaunchpadTable from "../common/LaunchPadTable";
 
-class LaunchPad extends Component {
+class LaunchPadScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {}
     }
 
     componentDidMount = () => {
-        this.props.requestCompanyInfo()
+        this.props.requestLaunchPad()
     }
 
     render() {
-        const { loading } = this.props;
+        const { loading, launchPads } = this.props;
+        console.log('vsdvdfvdfv', launchPads[0])
         return (
             <div className="company">
                 {
                     loading ?
                         <Spinner animation="grow" variant="secondary" />
                         :
-                        <div className="auth-inner">
-                            <h3 className="header">{"LaunchPad"}</h3>
-                        </div>
+                        <LaunchpadTable
+                            title={"LaunchPads"}
+                            header={["attempted_launches",
+                                "details", "id", "location",
+                                "name", "site_id",
+                                "site_name_long", "status", "successful_launches",
+                                "vehicles_launched", "wikipedia"
+                            ]}
+                            data={launchPads}
+                            push={this.props.history.push}
+                        />
                 }
             </div>
         );
     }
 }
 
-const mapStateToProps = ({ Info }) => {
-    const { loading, company } = Info;
-    return { loading, company };
+const mapStateToProps = ({ LaunchPad }) => {
+    const { loading, launchPads } = LaunchPad;
+    return { loading, launchPads };
 }
 const mapDispatchToProps = dispatch => {
     return {
-        requestCompanyInfo: () => {
-            dispatch(requestCompanyInfo());
+        requestLaunchPad: () => {
+            dispatch(requestLaunchPad());
         }
     };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(LaunchPad)  
+export default connect(mapStateToProps, mapDispatchToProps)(LaunchPadScreen)  

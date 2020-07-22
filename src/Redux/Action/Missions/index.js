@@ -1,66 +1,66 @@
 import axios from 'axios';
 import { baseUrl } from '../../../Component/common/index';
 import {
-    GET_ALL_LAUNCHPAD,
+    GET_ALL_MISSION,
 
 
 
-    GET_LAUNCHPAD_DETAIL,
-    GET_LAUNCHPAD_DETAIL_FAIL, GET_LAUNCHPAD_DETAIL_SUCCESS, GET_LAUNCHPAD_FAIL, GET_LAUNCHPAD_SUCCESS
-} from '../../Types';
+    GET_MISSION_DETAIL,
+    GET_MISSION_DETAIL_FAIL, GET_MISSION_DETAIL_SUCCESS, GET_MISSION_FAIL, GET_MISSION_SUCCESS
+} from '../../Types/index';
 
-export const requestHistory = () => {
+export const requestMission = () => {
     return dispatch => {
         dispatch({
-            type: GET_ALL_LAUNCHPAD,
+            type: GET_ALL_MISSION,
         });
-        const api = baseUrl + 'history';
+        const api = baseUrl + 'missions';
         axios.get(api, {}, {})
             .then((res) =>
-                historySuccess(dispatch, res)
+                missionSuccess(dispatch, res)
             ).catch(error => {
-                historyFail(dispatch, error);
+                missionFail(dispatch, error);
             }
             );
     };
 };
 
-const historySuccess = (dispatch, res) => {
+const missionSuccess = (dispatch, res) => {
     dispatch({
-        type: GET_LAUNCHPAD_SUCCESS,
+        type: GET_MISSION_SUCCESS,
         payload: res.data,
     });
 };
-const historyFail = (dispatch, error) => {
+const missionFail = (dispatch, error) => {
     dispatch({
-        type: GET_LAUNCHPAD_FAIL,
+        type: GET_MISSION_FAIL,
     });
 };
 
-export const historyDetails = (id) => {
+export const missionDetails = (mission_id) => {
     return dispatch => {
         dispatch({
-            type: GET_LAUNCHPAD_DETAIL,
+            type: GET_MISSION_DETAIL,
         });
-        const api = baseUrl + `history/${id}`;
+        const api = baseUrl + `missions/${mission_id}`;
         axios.get(api, {}, {})
             .then((res) =>
-                historyDetailSuccess(dispatch, res)
+                missionDetailSuccess(dispatch, res)
             ).catch(error => {
-                historyDetailFail(dispatch, error);
+                missionDetailFail(dispatch, error);
             }
             );
     };
 };
 
-const historyDetailSuccess = (dispatch, res) => {
+const missionDetailSuccess = (dispatch, res) => {
     dispatch({
-        type: GET_LAUNCHPAD_DETAIL_SUCCESS,
+        type: GET_MISSION_DETAIL_SUCCESS,
         payload: res.data,
     });
 };
-const historyDetailFail = (dispatch, error) => {
+const missionDetailFail = (dispatch, error) => {
     dispatch({
-        type: GET_LAUNCHPAD_DETAIL_FAIL,
+        type: GET_MISSION_DETAIL_FAIL,
     });
 };

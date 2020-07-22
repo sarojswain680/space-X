@@ -5,8 +5,11 @@ import {
 
 
     GET_DRAGONS_DETAIL,
-    GET_DRAGONS_DETAIL_SUCCESS, GET_DRAGONS_FAIL, GET_DRAGONS_SUCCESS
-} from '../../Types';
+    GET_DRAGONS_DETAIL_SUCCESS,
+    GET_DRAGONS_FAIL,
+    GET_DRAGONS_SUCCESS,
+    GET_DRAGONS_DETAIL_FAIL
+} from '../../Types/index';
 
 export const requestDragons = () => {
     return dispatch => {

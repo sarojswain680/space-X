@@ -3,44 +3,53 @@ import { Spinner } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../../App.css';
-import { requestCompanyInfo } from '../../Redux/Action/Info/index';
+import { requestHistory } from '../../Redux/Action/History/index';
+import HistoryTable from "../common/HistoryTable";
 
-class History extends Component {
+class HistoryScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {}
     }
 
     componentDidMount = () => {
-        this.props.requestCompanyInfo()
+        this.props.requestHistory()
     }
 
     render() {
-        const { loading } = this.props;
+        const { loading, historys } = this.props;
+        console.log('vvdfsvdfvd', historys[0])
         return (
             <div className="company">
                 {
                     loading ?
                         <Spinner animation="grow" variant="secondary" />
                         :
-                        <div className="auth-inner">
-                            <h3 className="header">{"History"}</h3>
-                        </div>
+                        <HistoryTable
+                            title={"Historys"}
+                            header={["details",
+                                "event_date_unix", "event_date_utc",
+                                "flight_number", "id",
+                                "links", "title"
+                            ]}
+                            data={historys}
+                            push={this.props.history.push}
+                        />
                 }
             </div>
         );
     }
 }
 
-const mapStateToProps = ({ Info }) => {
-    const { loading, company } = Info;
-    return { loading, company };
+const mapStateToProps = ({ History }) => {
+    const { loading, historys } = History;
+    return { loading, historys };
 }
 const mapDispatchToProps = dispatch => {
     return {
-        requestCompanyInfo: () => {
-            dispatch(requestCompanyInfo());
+        requestHistory: () => {
+            dispatch(requestHistory());
         }
     };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(History)  
+export default connect(mapStateToProps, mapDispatchToProps)(HistoryScreen)  

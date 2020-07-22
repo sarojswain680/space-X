@@ -3,44 +3,53 @@ import { Spinner } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../../App.css';
-import { requestCompanyInfo } from '../../Redux/Action/Info/index';
+import { requestMission } from '../../Redux/Action/Missions/index';
+import MissionTable from "../common/MissionTable";
 
-class Mission extends Component {
+class MissionScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {}
     }
 
     componentDidMount = () => {
-        this.props.requestCompanyInfo()
+        this.props.requestMission()
     }
 
     render() {
-        const { loading } = this.props;
+        const { loading, missions } = this.props;
+        console.log('vsdvdfvdfv', missions[0])
         return (
             <div className="company">
                 {
                     loading ?
                         <Spinner animation="grow" variant="secondary" />
                         :
-                        <div className="auth-inner">
-                            <h3 className="header">{"Mission"}</h3>
-                        </div>
+                        <MissionTable
+                            title={"Missions"}
+                            header={["description",
+                                "manufacturers", "mission_id", "mission_name",
+                                "payload_ids", "twitter",
+                                "website", "wikipedia"
+                            ]}
+                            data={missions}
+                            push={this.props.history.push}
+                        />
                 }
             </div>
         );
     }
 }
 
-const mapStateToProps = ({ Info }) => {
-    const { loading, company } = Info;
-    return { loading, company };
+const mapStateToProps = ({ Mission }) => {
+    const { loading, missions } = Mission;
+    return { loading, missions };
 }
 const mapDispatchToProps = dispatch => {
     return {
-        requestCompanyInfo: () => {
-            dispatch(requestCompanyInfo());
+        requestMission: () => {
+            dispatch(requestMission());
         }
     };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(Mission)  
+export default connect(mapStateToProps, mapDispatchToProps)(MissionScreen)  
