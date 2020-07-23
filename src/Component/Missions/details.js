@@ -17,7 +17,6 @@ class MissionDetails extends Component {
 
     render() {
         const { loading, mission } = this.props;
-        console.log('sdvsdvdfvd', mission)
         return (
             <div className="company">
                 {

@@ -1,66 +1,39 @@
 import axios from 'axios';
 import { baseUrl } from '../../../Component/common/index';
 import {
-    GET_ALL_LAUNCHPAD,
+    GET_ALL_ROADSTER,
 
 
 
-    GET_LAUNCHPAD_DETAIL,
-    GET_LAUNCHPAD_DETAIL_FAIL, GET_LAUNCHPAD_DETAIL_SUCCESS, GET_LAUNCHPAD_FAIL, GET_LAUNCHPAD_SUCCESS
-} from '../../Types';
 
-export const requestHistory = () => {
+    GET_ROADSTER_FAIL, GET_ROADSTER_SUCCESS
+} from '../../Types/index';
+
+export const requestRoadster = () => {
     return dispatch => {
         dispatch({
-            type: GET_ALL_LAUNCHPAD,
+            type: GET_ALL_ROADSTER,
         });
-        const api = baseUrl + 'history';
+        const api = baseUrl + 'roadster';
         axios.get(api, {}, {})
             .then((res) =>
-                historySuccess(dispatch, res)
+                roadsterSuccess(dispatch, res)
             ).catch(error => {
-                historyFail(dispatch, error);
+                roadsterFail(dispatch, error);
             }
             );
     };
 };
 
-const historySuccess = (dispatch, res) => {
+const roadsterSuccess = (dispatch, res) => {
     dispatch({
-        type: GET_LAUNCHPAD_SUCCESS,
+        type: GET_ROADSTER_SUCCESS,
         payload: res.data,
     });
 };
-const historyFail = (dispatch, error) => {
+const roadsterFail = (dispatch, error) => {
     dispatch({
-        type: GET_LAUNCHPAD_FAIL,
+        type: GET_ROADSTER_FAIL,
     });
 };
 
-export const historyDetails = (id) => {
-    return dispatch => {
-        dispatch({
-            type: GET_LAUNCHPAD_DETAIL,
-        });
-        const api = baseUrl + `history/${id}`;
-        axios.get(api, {}, {})
-            .then((res) =>
-                historyDetailSuccess(dispatch, res)
-            ).catch(error => {
-                historyDetailFail(dispatch, error);
-            }
-            );
-    };
-};
-
-const historyDetailSuccess = (dispatch, res) => {
-    dispatch({
-        type: GET_LAUNCHPAD_DETAIL_SUCCESS,
-        payload: res.data,
-    });
-};
-const historyDetailFail = (dispatch, error) => {
-    dispatch({
-        type: GET_LAUNCHPAD_DETAIL_FAIL,
-    });
-};

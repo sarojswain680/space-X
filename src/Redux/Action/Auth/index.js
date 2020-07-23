@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { LOGIN_FAIL, LOGIN_SUCCESS, ON_LOGIN } from '../../Types';
+import { LOGIN_FAIL, LOGIN_SUCCESS, ON_LOGIN, USER_ROLE_SAVE } from '../../Types';
 
 export const requestLogin = (email, password) => {
     return dispatch => {
@@ -23,6 +23,7 @@ export const requestLogin = (email, password) => {
 };
 
 const loginSuccess = (dispatch, res) => {
+    localStorage.setItem('auth_token', res.data.token);
     dispatch({
         type: LOGIN_SUCCESS,
         payload: res.data.data,
@@ -33,4 +34,5 @@ const loginFail = (dispatch, error) => {
         type: LOGIN_FAIL,
     });
 };
+
 

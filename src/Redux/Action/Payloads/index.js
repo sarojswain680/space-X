@@ -1,66 +1,66 @@
 import axios from 'axios';
 import { baseUrl } from '../../../Component/common/index';
 import {
-    GET_ALL_LAUNCHPAD,
+    GET_ALL_PAYLOAD,
 
 
 
-    GET_LAUNCHPAD_DETAIL,
-    GET_LAUNCHPAD_DETAIL_FAIL, GET_LAUNCHPAD_DETAIL_SUCCESS, GET_LAUNCHPAD_FAIL, GET_LAUNCHPAD_SUCCESS
+    GET_PAYLOAD_DETAIL,
+    GET_PAYLOAD_DETAIL_FAIL, GET_PAYLOAD_DETAIL_SUCCESS, GET_PAYLOAD_FAIL, GET_PAYLOAD_SUCCESS
 } from '../../Types';
 
-export const requestHistory = () => {
+export const requestPayload = () => {
     return dispatch => {
         dispatch({
-            type: GET_ALL_LAUNCHPAD,
+            type: GET_ALL_PAYLOAD,
         });
-        const api = baseUrl + 'history';
+        const api = baseUrl + 'payloads';
         axios.get(api, {}, {})
             .then((res) =>
-                historySuccess(dispatch, res)
+                payloadSuccess(dispatch, res)
             ).catch(error => {
-                historyFail(dispatch, error);
+                payloadFail(dispatch, error);
             }
             );
     };
 };
 
-const historySuccess = (dispatch, res) => {
+const payloadSuccess = (dispatch, res) => {
     dispatch({
-        type: GET_LAUNCHPAD_SUCCESS,
+        type: GET_PAYLOAD_SUCCESS,
         payload: res.data,
     });
 };
-const historyFail = (dispatch, error) => {
+const payloadFail = (dispatch, error) => {
     dispatch({
-        type: GET_LAUNCHPAD_FAIL,
+        type: GET_PAYLOAD_FAIL,
     });
 };
 
-export const historyDetails = (id) => {
+export const payloadDetails = (payload_id) => {
     return dispatch => {
         dispatch({
-            type: GET_LAUNCHPAD_DETAIL,
+            type: GET_PAYLOAD_DETAIL,
         });
-        const api = baseUrl + `history/${id}`;
+        const api = baseUrl + `payloads/${payload_id}`;
         axios.get(api, {}, {})
             .then((res) =>
-                historyDetailSuccess(dispatch, res)
+                payloadDetailSuccess(dispatch, res)
             ).catch(error => {
-                historyDetailFail(dispatch, error);
+                payloadDetailFail(dispatch, error);
             }
             );
     };
 };
 
-const historyDetailSuccess = (dispatch, res) => {
+const payloadDetailSuccess = (dispatch, res) => {
     dispatch({
-        type: GET_LAUNCHPAD_DETAIL_SUCCESS,
+        type: GET_PAYLOAD_DETAIL_SUCCESS,
         payload: res.data,
     });
 };
-const historyDetailFail = (dispatch, error) => {
+const payloadDetailFail = (dispatch, error) => {
     dispatch({
-        type: GET_LAUNCHPAD_DETAIL_FAIL,
+        type: GET_PAYLOAD_DETAIL_FAIL,
     });
 };

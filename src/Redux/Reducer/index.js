@@ -8,6 +8,9 @@ import History from './history';
 import Landpad from './landpad';
 import LaunchPad from './launchPad';
 import Mission from './mission';
+import Payload from './payload';
+import Rocket from './rockets';
+import Roadster from './roadster';
 
 const initialState = { loadingStatus: false };
 
@@ -20,6 +23,9 @@ export default combineReducers({
     History,
     Landpad,
     LaunchPad,
-    Mission
+    Mission,
+    Payload,
+    Rocket,
+    Roadster
 });
 

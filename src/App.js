@@ -23,10 +23,15 @@ import Missions from '../src/Component/Missions/index';
 import MissionsDetails from '../src/Component/Missions/details';
 import NavBar from '../src/Component/NavBar/index';
 import Payloads from '../src/Component/Payloads/index';
+import PayloadsDetails from '../src/Component/Payloads/details';
 import Roadster from '../src/Component/Roadster/index';
 import Rockets from '../src/Component/Rockets/index';
+import RocketsDetails from '../src/Component/Rockets/details';
 import Ships from '../src/Component/Ships/index';
 import DragonsDetails from '../src/Component/Dragons/details';
+
+const token = localStorage.getItem('auth_token');
+
 
 class App extends Component {
 
@@ -58,8 +63,10 @@ class App extends Component {
           <Route exact path="/missions" component={Missions} />
           <Route exact path="/missions/details" component={MissionsDetails} />
           <Route exact path="/payloads" component={Payloads} />
+          <Route exact path="/payloads/details" component={PayloadsDetails} />
           <Route exact path="/roadster" component={Roadster} />
           <Route exact path="/rockets" component={Rockets} />
+          <Route exact path="/rockets/details" component={RocketsDetails} />
           <Route exact path="/ships" component={Ships} />
         </Switch>
       </BrowserRouter>

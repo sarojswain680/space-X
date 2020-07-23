@@ -17,7 +17,6 @@ class LandpadDetails extends Component {
 
     render() {
         const { loading, landpad } = this.props;
-        console.log('sdvsdvdfvd', landpad)
         return (
             <div className="company">
                 {

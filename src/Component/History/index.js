@@ -18,7 +18,6 @@ class HistoryScreen extends Component {
 
     render() {
         const { loading, historys } = this.props;
-        console.log('vvdfsvdfvd', historys[0])
         return (
             <div className="company">
                 {

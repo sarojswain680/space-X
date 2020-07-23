@@ -4,7 +4,10 @@ import { LOGIN_FAIL, LOGIN_SUCCESS, ON_LOGIN } from '../Types/index';
 const initialState = {
     loading: false,
     isLoggedIn: false,
+    role: ''
 };
+
+
 
 export default (state = initialState, action) => {
     switch (action.type) {
@@ -18,6 +21,5 @@ export default (state = initialState, action) => {
             return { ...state, isLoggedIn: false, loading: false };
         default:
             return state
-
     }
 }

@@ -13,7 +13,6 @@ const initialState = {
 };
 
 export default (state = initialState, action) => {
-    console.log('......vasvskdvjlsdk', action.payload)
     switch (action.type) {
         case GET_COMPANY_INFO:
             return { ...state, loading: true };

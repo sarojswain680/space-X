@@ -18,7 +18,6 @@ class MissionScreen extends Component {
 
     render() {
         const { loading, missions } = this.props;
-        console.log('vsdvdfvdfv', missions[0])
         return (
             <div className="company">
                 {

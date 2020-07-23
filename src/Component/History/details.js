@@ -17,7 +17,6 @@ class HIstoryDetails extends Component {
 
     render() {
         const { loading, history } = this.props;
-        console.log('sdvsdvdfvd', history)
         return (
             <div className="company">
                 {

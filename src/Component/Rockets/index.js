@@ -3,44 +3,54 @@ import { Spinner } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../../App.css';
-import { requestCompanyInfo } from '../../Redux/Action/Info/index';
+import { requestRocket } from '../../Redux/Action/Rockets/index';
+import RocketTable from "../common/RocketTable";
 
-class Rockets extends Component {
+class RocketsScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {}
     }
 
     componentDidMount = () => {
-        this.props.requestCompanyInfo()
+        this.props.requestRocket()
     }
 
     render() {
-        const { loading } = this.props;
+        const { loading, rockets } = this.props;
         return (
             <div className="company">
                 {
                     loading ?
                         <Spinner animation="grow" variant="secondary" />
                         :
-                        <div className="auth-inner">
-                            <h3 className="header">{"Rockets"}</h3>
-                        </div>
+                        <RocketTable
+                            title={"Rockets"}
+                            header={["active",
+                                "boosters", "company", "cost_per_launch",
+                                "country", "description",
+                                "diameter",
+                                "first_flight", "flickr_images", "id", "rocket_id", "rocket_name", "rocket_type",
+                                "stages", "success_rate_pct", "wikipedia",
+                            ]}
+                            data={rockets}
+                            push={this.props.history.push}
+                        />
                 }
             </div>
         );
     }
 }
 
-const mapStateToProps = ({ Info }) => {
-    const { loading, company } = Info;
-    return { loading, company };
+const mapStateToProps = ({ Rocket }) => {
+    const { loading, rockets } = Rocket;
+    return { loading, rockets };
 }
 const mapDispatchToProps = dispatch => {
     return {
-        requestCompanyInfo: () => {
-            dispatch(requestCompanyInfo());
+        requestRocket: () => {
+            dispatch(requestRocket());
         }
     };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(Rockets)  
+export default connect(mapStateToProps, mapDispatchToProps)(RocketsScreen)  

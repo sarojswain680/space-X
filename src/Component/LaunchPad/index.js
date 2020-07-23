@@ -18,7 +18,6 @@ class LaunchPadScreen extends Component {
 
     render() {
         const { loading, launchPads } = this.props;
-        console.log('vsdvdfvdfv', launchPads[0])
         return (
             <div className="company">
                 {

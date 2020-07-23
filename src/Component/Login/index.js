@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../../App.css';
 import { requestLogin } from '../../Redux/Action/Auth/index';
-import { emailValidation } from '../common/index';
+import { emailValidation, passwordValidation } from '../common/index';
 
 class Login extends Component {
     constructor(props) {
@@ -16,6 +16,7 @@ class Login extends Component {
     }
     onSubmit = (e) => {
         e.preventDefault();
+
         const { email, password } = this.state;
         if (!email) {
             return this.setState({ error: 'Please enter your user name' })
@@ -23,10 +24,27 @@ class Login extends Component {
             return this.setState({ error: 'Inavalid email address' })
         } else if (!password) {
             return this.setState({ error: 'Please enter your password' })
-        } else if (password.length < 8 || password.length > 16) {
+        } else if (!passwordValidation.test(password)) {
+            //  password has at least one numbe
+            //password has at least one special character.
             return this.setState({ error: "Invalid credentials" })
         } else {
-            this.props.requestLogin(email, password)
+            this.props.requestLogin(email, password);
+        }
+    }
+
+    componentDidMount = () => {
+
+        const roles = ["End_user", "Admin", "Manager", "Hr"];
+        const randomRole = roles[Math.floor(Math.random() * roles.length)];
+
+        localStorage.setItem('user_role', randomRole)
+
+        const token = localStorage.getItem('auth_token');
+        if (!token) {
+            return this.props.history.push('/');
+        } else {
+            return this.props.history.push('/dashboard')
         }
     }
 
@@ -90,7 +108,7 @@ const mapDispatchToProps = dispatch => {
     return {
         requestLogin: (email, password) => {
             dispatch(requestLogin(email, password));
-        }
+        },
     };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Login)  

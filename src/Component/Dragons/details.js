@@ -12,13 +12,11 @@ class DragonDetails extends Component {
     }
 
     componentDidMount = () => {
-        console.log('vvdvdfvdrfvrdf', this.props.location.state)
         this.props.dragonDetails(this.props.location.state.id)
     }
 
     render() {
         const { loading, dragon } = this.props;
-        console.log('sdvsdvdfvd', dragon)
         return (
             <div className="company">
                 {

@@ -1,66 +1,66 @@
 import axios from 'axios';
 import { baseUrl } from '../../../Component/common/index';
 import {
-    GET_ALL_LAUNCHPAD,
+    GET_ALL_ROCKETS,
 
 
 
-    GET_LAUNCHPAD_DETAIL,
-    GET_LAUNCHPAD_DETAIL_FAIL, GET_LAUNCHPAD_DETAIL_SUCCESS, GET_LAUNCHPAD_FAIL, GET_LAUNCHPAD_SUCCESS
-} from '../../Types';
+    GET_ROCKETS_DETAIL,
+    GET_ROCKETS_DETAIL_FAIL, GET_ROCKETS_DETAIL_SUCCESS, GET_ROCKETS_FAIL, GET_ROCKETS_SUCCESS
+} from '../../Types/index';
 
-export const requestHistory = () => {
+export const requestRocket = () => {
     return dispatch => {
         dispatch({
-            type: GET_ALL_LAUNCHPAD,
+            type: GET_ALL_ROCKETS,
         });
-        const api = baseUrl + 'history';
+        const api = baseUrl + 'rockets';
         axios.get(api, {}, {})
             .then((res) =>
-                historySuccess(dispatch, res)
+                rocketSuccess(dispatch, res)
             ).catch(error => {
-                historyFail(dispatch, error);
+                rocketFail(dispatch, error);
             }
             );
     };
 };
 
-const historySuccess = (dispatch, res) => {
+const rocketSuccess = (dispatch, res) => {
     dispatch({
-        type: GET_LAUNCHPAD_SUCCESS,
+        type: GET_ROCKETS_SUCCESS,
         payload: res.data,
     });
 };
-const historyFail = (dispatch, error) => {
+const rocketFail = (dispatch, error) => {
     dispatch({
-        type: GET_LAUNCHPAD_FAIL,
+        type: GET_ROCKETS_FAIL,
     });
 };
 
-export const historyDetails = (id) => {
+export const rocketDetails = (rocket_id) => {
     return dispatch => {
         dispatch({
-            type: GET_LAUNCHPAD_DETAIL,
+            type: GET_ROCKETS_DETAIL,
         });
-        const api = baseUrl + `history/${id}`;
+        const api = baseUrl + `rockets/${rocket_id}`;
         axios.get(api, {}, {})
             .then((res) =>
-                historyDetailSuccess(dispatch, res)
+                rocketDetailSuccess(dispatch, res)
             ).catch(error => {
-                historyDetailFail(dispatch, error);
+                rocketDetailFail(dispatch, error);
             }
             );
     };
 };
 
-const historyDetailSuccess = (dispatch, res) => {
+const rocketDetailSuccess = (dispatch, res) => {
     dispatch({
-        type: GET_LAUNCHPAD_DETAIL_SUCCESS,
+        type: GET_ROCKETS_DETAIL_SUCCESS,
         payload: res.data,
     });
 };
-const historyDetailFail = (dispatch, error) => {
+const rocketDetailFail = (dispatch, error) => {
     dispatch({
-        type: GET_LAUNCHPAD_DETAIL_FAIL,
+        type: GET_ROCKETS_DETAIL_FAIL,
     });
 };

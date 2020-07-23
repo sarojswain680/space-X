@@ -18,7 +18,6 @@ class LandpadsScreen extends Component {
 
     render() {
         const { loading, landpads } = this.props;
-        console.log('vsdvdfvdfv', landpads[0])
         return (
             <div className="company">
                 {

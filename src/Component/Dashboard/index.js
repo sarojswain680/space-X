@@ -8,10 +8,16 @@ import { requestCompanyInfo } from '../../Redux/Action/Info/index';
 class Dashboard extends Component {
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {
+            role: ''
+        }
     }
 
     componentDidMount = () => {
+        const role = localStorage.getItem('user_role')
+        this.setState({
+            role: role
+        })
         this.props.requestCompanyInfo()
     }
 
@@ -24,6 +30,7 @@ class Dashboard extends Component {
                         <Spinner animation="grow" variant="secondary" />
                         :
                         <div className="auth-inner">
+                            <h3 className="header">{`User role :- ${this.state.role}`}</h3>
                             <h3 className="header">{"Company Info"}</h3>
                             <div>C.E.O : - {company.ceo}</div>
                             <div>C.O.O : - {company.coo}</div>
@@ -49,9 +56,10 @@ class Dashboard extends Component {
     }
 }
 
-const mapStateToProps = ({ Info }) => {
+const mapStateToProps = ({ Info, Auth }) => {
     const { loading, company } = Info;
-    return { loading, company };
+    const { role } = Auth;
+    return { loading, company, role };
 }
 const mapDispatchToProps = dispatch => {
     return {

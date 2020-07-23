@@ -18,7 +18,6 @@ class DragonsScreen extends Component {
 
     render() {
         const { loading, dragons } = this.props;
-        console.log('vvdfsvdfvd', dragons[0])
         return (
             <div className="company">
                 {

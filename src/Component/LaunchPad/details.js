@@ -17,7 +17,6 @@ class LaunchpadDetails extends Component {
 
     render() {
         const { loading, launchPad } = this.props;
-        console.log('sdvsdvdfvd', launchPad)
         return (
             <div className="company">
                 {

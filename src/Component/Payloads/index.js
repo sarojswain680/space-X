@@ -3,44 +3,53 @@ import { Spinner } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../../App.css';
-import { requestCompanyInfo } from '../../Redux/Action/Info/index';
+import { requestPayload } from '../../Redux/Action/Payloads/index';
+import PayloadTable from "../common/PayloadTable";
 
-class Payload extends Component {
+class PayloadsScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {}
     }
 
     componentDidMount = () => {
-        this.props.requestCompanyInfo()
+        this.props.requestPayload()
     }
 
     render() {
-        const { loading } = this.props;
+        const { loading, payloads } = this.props;
         return (
             <div className="company">
                 {
                     loading ?
                         <Spinner animation="grow" variant="secondary" />
                         :
-                        <div className="auth-inner">
-                            <h3 className="header">{"Payload"}</h3>
-                        </div>
+                        <PayloadTable
+                            title={"Payloads"}
+                            header={["customers",
+                                "manufacturer", "nationality", "norad_id",
+                                "orbit", "orbit_params",
+                                "payload_id", "payload_mass_kg",
+                                "payload_mass_lbs", "payload_type", "reused"
+                            ]}
+                            data={payloads}
+                            push={this.props.history.push}
+                        />
                 }
             </div>
         );
     }
 }
 
-const mapStateToProps = ({ Info }) => {
-    const { loading, company } = Info;
-    return { loading, company };
+const mapStateToProps = ({ Payload }) => {
+    const { loading, payloads } = Payload;
+    return { loading, payloads };
 }
 const mapDispatchToProps = dispatch => {
     return {
-        requestCompanyInfo: () => {
-            dispatch(requestCompanyInfo());
+        requestPayload: () => {
+            dispatch(requestPayload());
         }
     };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(Payload)  
+export default connect(mapStateToProps, mapDispatchToProps)(PayloadsScreen)  
